@@ -158,13 +158,16 @@
     content.addEventListener('touchmove', function (e) {
         let scrollTop = document.body.scrollTop+document.documentElement.scrollTop;
         if (scrollTop < (startingLine-2)) {
-        e.preventDefault();
+        //e.preventDefault();
         }
     })
     content.addEventListener('touchend', function (e) {
         let scrollTop = document.body.scrollTop+document.documentElement.scrollTop;
         if (scrollTop < startingLine) {
-        window.scroll(0, startingLine);  
+        window.scrollTo({
+            top: startingLine,
+            behavior: "smooth"
+        }); 
         }
     })
     
