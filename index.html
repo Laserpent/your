@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
- <head>
+<head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="theme-color" content="#eaeffb" />
@@ -26,18 +26,89 @@
             height: auto;
             user-select: none;
         }
+        .body-fixed{
+            overflow: hidden;
+            height: 100vh;
+        }
         .header{
             position: fixed;
             display: flex;
+            top: -50px;
             width: 100%;
-            z-index: 999;
+            z-index: 199;
+        }
+        .popup{
+            position: fixed;
+            display: flex;
+            left: 0;
+            bottom: 0;
+            height: 100vh;
+            width: 100vw;
+            z-index: 100;
+            transform: translateY(100vh);
+            transition: .3s;
+        }
+        .popup-show{
+            transform: translateY(0);
+        }
+        .tcardbar{
+            position: absolute;
+            left: 0;
+            bottom: 77%;
+            width: 100%;
+            z-index: 188;
+        }
+        .tcard{
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 77%;
+            width: 100%;
+            background-color: #F5F5F5;
+            z-index: 189;
+        }
+        .shade{
+            visibility: hidden;
+            display: flex;
+            position: absolute;
+            background-color: rgba(0, 0, 0, .5);
+            height: 100vh;
+            width: 100vw;
+            z-index: 99;
+            opacity: 0;
+            transition: .3s;
+        }
+        .cover-s{
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 20%;
+            width: 100%;
+            z-index: 110;
+        }
+        .cover-t{
+            position: absolute;
+            top: 12%;
+            right: 4%;
+            height: 4%;
+            width: 7%;
+            z-index: 198;
+        }
+        .shade-show{
+            visibility: visible;
+            opacity: 1;
         }
         .content{
             position: relative;
             width: 100%;
             z-index: 1;
+            filter: blur(0px);
+            transition: .3s;
         }
-        .cover-a {
+        .content-blur{
+            filter: blur(3px);
+        }
+        .cover-a{
             position: absolute;
             top: 10%;
             bottom: 0;
@@ -47,20 +118,35 @@
             width: 32%;
             z-index: 2;
         }
-        .cover-b {
+        .cover-b{
             position: absolute;
             top: 19%;
             bottom: 0;
-            left: 0%;
+            left: 0;
             right: 0;
             height: 60%;
             width: 100%;
             z-index: 3;
         }
+        .cover-c{
+            position: absolute;
+            top: 52%;
+            right: 6%;
+            height: 6%;
+            width: 34%;
+            z-index: 3;
+        }
         .fg{
+            z-index: 0;
+        }
+        .bg{
             position: absolute;
             top: 0%;
             width: 100%;
+            z-index: -1;
+        }
+        .text{
+            z-index: 1;
         }
         .name{
             position: absolute;
@@ -104,11 +190,26 @@
 </head>
 
 <body>
-    <div class="content">
-        <img class="fg" src="./res/fg.webp" />
-        <img src="./res/bg.gif" />
+    <header class="header">
+        <img src="./res/head.png" />
+    </header>
+    <div class="popup" id="popup">
+        <img class="tcardbar" src="./res/cardbar.png" />
+        <iframe 
+        class="tcard" 
+        src="https://laserpent.github.io/an-example/login.html" 
+        frameborder=0
+        ></iframe>
+        <div class="cover-s" onclick="showPopup()"></div>
+        <div class="cover-t" onclick="showPopup()"></div>
+    </div>
+    <div class="shade" id="shade"></div>
+    <div class="content" id="content">
         <div class="cover-a"></div>
         <div class="cover-b"></div>
+        <div class="cover-c" onclick="showPopup()"></div>
+        <img class="fg" src="./res/fg.webp" />
+        <img class="bg" src="./res/bg.gif" />
         <div class="text">
             <span contenteditable="true" class="name">&#x80e1&#x002a</span>
             <div class="date">
@@ -170,6 +271,20 @@
         }); 
         }
     })
+    function showPopup(){
+        if(!this.bool){
+            document.getElementById('popup').classList.add("popup-show");
+            document.getElementById('shade').classList.add("shade-show");
+            document.getElementById('content').classList.add("content-blur");
+            document.body.classList.add("body-fixed");
+        }else{
+            document.getElementById('popup').classList.remove("popup-show");
+            document.getElementById('shade').classList.remove("shade-show");
+            document.getElementById('content').classList.remove("content-blur");
+            document.body.classList.remove("body-fixed");
+        }
+        this.bool = !this.bool;
+    }
     
     window.onload = starts
     showTest()
