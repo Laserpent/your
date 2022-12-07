@@ -38,7 +38,7 @@
             z-index: 199;
         }
         .popup {
-        	overflow: hidden;
+            overflow: hidden;
             position: fixed;
             left: 0;
             bottom: 0;
@@ -143,10 +143,23 @@
             width: 10%;
             z-index: 3;
         }
+        .cover-rm {
+            position: absolute;
+            top: 63%;
+            bottom: 0;
+            left: 90%;
+            height: 8%;
+            width: 10%;
+            z-index: 10;
+        }
         .qr-corner {
             display: none;
             position: absolute;
             top: -1px;
+        }
+        .rm {
+            display: inline;
+            position: absolute;
         }
         .fg {
             z-index: 0;
@@ -188,6 +201,7 @@
             user-select: none;
         }
         #test {
+            display: none;
             position: absolute;
             top: 69.2%;
             left: 6%;
@@ -222,6 +236,8 @@
         <div class="cover-b"></div>
         <div class="cover-c" onclick="showPopup()"></div>
         <div class="cover-qr" onclick="destroyQR()"></div>
+        <div class="cover-rm" onclick="restore()"></div>
+        <img class="rm" id="rm" src="./res/removal.webp" />
         <img class="qr-corner" id="qr-corner" src="./res/qr-corner.png" />
         <img class="fg" src="./res/fg.webp" />
         <img class="bg" src="./res/bg.gif" />
@@ -283,6 +299,16 @@
             document.getElementById("qr-corner").style.display = "inline";
         }else{
             document.getElementById("qr-corner").style.display = "none";
+        }
+        this.bool = !this.bool;
+    }
+    function restore(){
+        if(!this.bool){
+            document.getElementById("rm").style.display = "none";
+            document.getElementById("test").style.display = "inline";
+        }else{
+            document.getElementById("rm").style.display = "inline";
+            document.getElementById("test").style.display = "none";
         }
         this.bool = !this.bool;
     }
